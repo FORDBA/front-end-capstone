@@ -4,6 +4,12 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { RankProvider } from "./rank/RankProvider"
+import { ProfessionProvider } from "./profession/ProfessionProvider"
+import { UserProvider } from "./user/UserProvider"
+import { RoleProvider } from "./role/RoleProvider"
+import { ClassProvider } from "./class/ClassProvider"
+import { RaceProvider } from "./race/RaceProvider"
 
 export const Guild = () => (
     <>
@@ -21,6 +27,19 @@ export const Guild = () => (
         }} />
 
         <Route path="/login" render={props => <Login {...props} />} />
-        <Route path="/register" render={props => <Register {...props} />} />
+        
+
+       <RoleProvider>
+           <ClassProvider>
+               <RaceProvider>
+       <RankProvider>
+           <ProfessionProvider>
+                <Route path="/register" render={props => <Register {...props} />} />
+           </ProfessionProvider>
+        </RankProvider>
+               </RaceProvider>
+           </ClassProvider>
+       </RoleProvider>
+        
     </>
 )
