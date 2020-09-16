@@ -13,7 +13,7 @@ export const UserProvider = (props) => {
     }
 
     const getUserById = (id) => {
-        return fetch(`http://localhost:8088/users/${id}?_expand=rank&_expand=class`)
+        return fetch(`http://localhost:8088/users/${id}?_expand=rank&_expand=class&_expand=role&_expand=race`)
             .then(res => res.json())
     }
 

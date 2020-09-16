@@ -72,7 +72,7 @@ export const Register = (props) => {
                         })
                 })
         } else {
-            passwordDialog.current.showModal()
+            passwordDialog.csurrent.showModal()
         }
     }
 
