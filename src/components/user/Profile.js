@@ -3,22 +3,35 @@ import { UserContext } from "./UserProvider"
 import { UserProfessionContext } from "../profession/UserProfessionProvider"
 import { User } from "./User"
 import "./Users.css"
+import { UserProfessionList } from "../profession/UserProfessionList"
 
 export const Profile = ({ history }) => {
+    
     const { getUsers, users, searchTerms, getUserById } = useContext(UserContext)
-    const { getUserProfessions, userProfessions } = useContext(UserProfessionContext)
+    
 
     const [user, setUser] = useState({ rank: {}, role: {}, class: {}, race: {} })
+   
 
     useEffect(() => {
         const userId = parseInt(localStorage.getItem("guild_user"))
         getUserById(userId)
         .then(setUser)
+                
     }, [])
+
+    
+    
+
+
+
+
+    
 
     
 
 
+    
     
  
     return (
@@ -29,10 +42,16 @@ export const Profile = ({ history }) => {
             <div className="profile__name">{user.name}</div>
             <div className="profile__rank">{user.rank.name}</div>
             <div className="profile__details">{user.race.name} {user.class.name}</div>
-            
+            <div><img  class="profile__image" src={user.photo} /></div>
+            <UserProfessionList>
+
+            </UserProfessionList>
 
             <button onClick={() => history.push("/profile/createprofs")}>
                 Add Professions
+                </button>
+                <button onClick={() => history.push("/profile/createbossesneeded")}>
+                Add Bosses
                 </button>
             <div className="profile">
                

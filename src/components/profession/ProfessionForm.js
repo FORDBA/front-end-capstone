@@ -9,16 +9,11 @@ export const ProfessionForm = (props) => {
     const [userProfession, setUserProfession] = useState({})
 
     const editMode = props.match.params.hasOwnProperty("userProfessionId")
-    const profession = useRef() 
+    const profession = useRef()
 
-    const handleControlledInputChange = (event) => {
-       
-        const newUserProfession = Object.assign({}, userProfession)          // Create copy
-        newUserProfession[event.target.name] = event.target.value    // Modify copy
-        setUserProfession(newUserProfession)                                 // Set copy as new state
-    }
 
-    
+
+
     const getUserProfessionInEditMode = () => {
         if (editMode) {
             const userProfessionId = parseInt(props.match.params.userProfessionId)
@@ -27,45 +22,52 @@ export const ProfessionForm = (props) => {
         }
     }
 
-   
+
     useEffect(() => {
         getUserProfessions()
         getProfessions()
     }, [])
 
-    
+
     useEffect(() => {
         getUserProfessionInEditMode()
     }, [userProfessions])
 
     let i = 0
     const constructNewUserProfession = () => {
-        if (i <2) {
-        const professionId = parseInt(profession.current.value)
+        const selectedProfessions = Array.from(profession.current.selectedOptions)
+        if (selectedProfessions.length === 2  ){
 
-        if (professionId === 0) {
-            window.alert("Please select a profession")
-        } else {
-            if (editMode) {
-                // PUT
-                updateUserProfession({
-                    professionId: professionId,
-                    userId: parseInt(localStorage.getItem("guild_user"))
-                })
-                    .then(() => props.history.push("/"))
-            } else {
-                // POST
-                addUserProfession({
-                    professionId: professionId,
-                    customerId: parseInt(localStorage.getItem("guild_user"))
-                })
-                    .then(() => props.history.push("/"))
-            }
+            selectedProfessions.map(professionId=> { 
+                
+                
+                
+                if (parseInt(professionId.value) === 0) {
+                    window.alert("Please select two professions")
+                } else {
+                    if (editMode) {
+                        // PUT
+                        updateUserProfession({
+                            professionId: parseInt(professionId.value),
+                            userId: parseInt(localStorage.getItem("guild_user"))
+                        })
+                        .then(() => props.history.push("/profile"))
+                    } else {
+                        debugger
+                        // POST
+                        addUserProfession({
+                            professionId: parseInt(professionId.value),
+                            userId: parseInt(localStorage.getItem("guild_user"))
+                        })
+                        .then(() => props.history.push("/profile"))
+                    }
+                }
+            } )
         }
+        else {window.alert("You must select two Professions")}
+        
+        
     }
-else {
-    window.alert("You can only have two professions.")
-}}
 
     return (
         <form className="professionForm">
@@ -73,8 +75,8 @@ else {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="professions">Professions: </label>
-                    <select defaultValue="" name="race" ref={profession} id="userRace" className="form-control" >
-                   
+                    <select multiple={true} defaultValue="" name="race" ref={profession} id="userRace" className="form-control" >
+
                         <option value="0">Select Professions</option>
                         {professions.map(e => (
                             <option key={e.id} value={e.id}>
@@ -82,23 +84,19 @@ else {
                             </option>
                         ))}
                     </select>
-                    <button onClick={() => {
-                constructNewUserProfession()
-                i += 1
-            }}>Add</button>
                 </div>
             </fieldset>
-            
+
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault()
                     constructNewUserProfession()
                 }}
                 className="btn btn-primary">
-                {editMode ? "Save Updates" : "Make Reservation"}
+                {editMode ? "Save Updates" : "Add Professions"}
             </button>
         </form>
-    
+
     )
 
 }

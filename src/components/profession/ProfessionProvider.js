@@ -22,6 +22,7 @@ export const ProfessionProvider = (props) => {
         })
             .then(getProfessions)
     }
+    
 
     
     

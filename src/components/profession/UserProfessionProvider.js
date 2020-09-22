@@ -23,11 +23,16 @@ export const UserProfessionProvider = (props) => {
             .then(getUserProfessions)
     }
 
+    const getUserProfessionById = (id) => {
+        return fetch(`http://localhost:8088/userProfessions/${id}?_expand=user&_expand=profession`)
+            .then(res => res.json())
+    }
+
     
     
     return (
         <UserProfessionContext.Provider value={{
-            userProfessions, getUserProfessions, addUserProfession
+            userProfessions, getUserProfessions, addUserProfession, getUserProfessionById
         }}>
             {props.children}
         </UserProfessionContext.Provider>
