@@ -34,18 +34,17 @@ export const EventList = (props, { history }) => {
                <div className="events" >
                 {
                     filteredEvents.map(event => {
-                        event.users = events.find(e => e.userId === user.id)
+                        event.users = users.find(e => e.id === event.userId)
                         return <section className="event" key={event.id}>
-                            <Link to={{
-                                pathname: `/events/${event.id}`,
-                                state: {chosenEvent: event}
-                                }}>
-                                <h3 className="event__name">{event.name}</h3>
+                            <Link to={`/events/${event.id}`}>
+                                <h3>{event.name}</h3>
 
                             </Link>
                                 <div className="event__date">{event.date}</div>
-                                <div className="event__creator">Created By: {event.user.id}</div>
-                                
+                                <div className="event__creator">Created By: {event.users.name}</div>
+                                <button classname="attending">Attending</button>
+                                <button classname="tentative">Tentative</button>
+                                <button classname="notAttending">Not Attending</button>
                         </section>
                     })
                 }

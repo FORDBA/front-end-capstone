@@ -39,7 +39,7 @@ export const EventProvider = (props) => {
             .then(getEvents)
     }
     const deleteEvent = (eventId) => {
-        return fetch(`http://localhost:8088/event/${eventId}`, {
+        return fetch(`http://localhost:8088/events/${eventId}`, {
             method: "DELETE"
         })
             .then(getEvents)

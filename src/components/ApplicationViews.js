@@ -94,6 +94,10 @@ export const ApplicationViews = (props) => {
                         }} />
                         <Route path="/bosses/:bossId(\d+)" render={
                             props => <BossDetails {...props} />
+                    
+                        } />
+                        <Route path="/bosses/edit/:bossId(\d+)" render={
+                            props => <BossForm {...props} />
                         } />
 
             </BossProvider>
@@ -115,8 +119,11 @@ export const ApplicationViews = (props) => {
                         }} />
 
 
-                        <Route path="/members/:eventId(\d+)" render={
+                        <Route path="/events/:eventId(\d+)" render={
                             props => <EventDetails {...props} />
+                        } />
+                         <Route path="/events/edit/:eventId(\d+)" render={
+                            props => <EventForm {...props} />
                         } />
                     
                 </EventProvider>

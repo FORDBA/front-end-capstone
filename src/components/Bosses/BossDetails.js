@@ -6,7 +6,7 @@ import "./Bosses.css"
 
 
 export const BossDetails = ( props ) => {
-    const { getBosses, bosses, searchTerms, getBossById } = useContext(BossContext)
+    const { getBosses, bosses, deleteBoss, getBossById } = useContext(BossContext)
     
 
     const [boss, setBoss] = useState({ dungeon: {} })
@@ -34,8 +34,18 @@ export const BossDetails = ( props ) => {
             
             
 
-            
-           
+            <button onClick={() => deleteBoss(boss.id).then(() => props.history.push("/bosses"))} >Delete Boss</button>
+            <button onClick={() => {
+                props.history.push(`/bosses/edit/${boss.id}`)
+            }}>Edit</button>
+
+
+        <h2>Comments</h2>
+        <input type="text" name="name" required autoFocus className="form-control"
+                        placeholder="Event Name"
+                        defaultValue={event.name}
+                        onChange={handleControlledInputChange}
+                    />
         </main>
     )
 }
