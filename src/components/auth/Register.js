@@ -1,25 +1,28 @@
-import React, { useRef, useContext, useEffect } from "react"
+import React, { useRef, useContext, useEffect, useState } from "react"
 import "./Login.css"
 import { RankContext } from "../rank/RankProvider"
 import { RoleContext } from "../role/RoleProvider"
 import { RaceContext } from "../race/RaceProvider"
 import { ClassContext } from "../class/ClassProvider"
+import { UserContext } from "../user/UserProvider"
 
 export const Register = (props) => {
     const { ranks, getRanks } = useContext(RankContext)
     const { roles, getRoles } = useContext(RoleContext)
     const { races, getRaces } = useContext(RaceContext)
     const { classes, getClasses } = useContext(ClassContext)
+    const { users, updateUser, getUsers } = useContext(UserContext)
     const username = useRef()
     const password = useRef()
     const verifyPassword = useRef()
-    const userPhoto = useRef()
     const passwordDialog = useRef()
     const rank = useRef()
     const role = useRef()
     const userClass = useRef()
     const race = useRef()
     const userSummary = useRef()
+    const [user, setUser] = useState({})
+    const editMode = props.match.params.hasOwnProperty("userId")  
 
     useEffect(() => {
         getRanks()
@@ -29,13 +32,28 @@ export const Register = (props) => {
 
        
     }, [])
+    useEffect(() => {
+        getUserInEditMode()
+    }, [users])
 
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?name=${username.current.value}`)
             .then(_ => _.json())
             .then(user => !!user.length)
     }
-
+    const getUserInEditMode = () => {
+        if (editMode) {
+            const userId = parseInt(localStorage.getItem("guild_user"))
+            const selectedUser = users.find(a => a.id === userId) || {}
+            setUser(selectedUser)
+        }
+    }
+    const handleControlledInputChange = (event) => {
+       
+        const newUser = Object.assign({}, user)          
+        newUser[event.target.name] = event.target.value    
+        setUser(newUser)                                 
+    }
     const handleRegister = () => {
         
         const rankId = parseInt(rank.current.value)
@@ -46,6 +64,22 @@ export const Register = (props) => {
         if (password.current.value === verifyPassword.current.value) {
             existingUserCheck()
                 .then(() => {
+                    if (editMode) {
+                        updateUser({
+                            id: parseInt(localStorage.getItem("guild_user")),
+                            name: username.current.value,
+                            password: password.current.value,
+                            rankId: rankId,
+                            roleId: roleId,
+                            classId: classId,
+                            raceId: raceId,
+                            photo: image,
+                            summary: userSummary.current.value
+
+                        })
+                        .then(() => props.history.push("/profile"))
+                    }
+                    else{
                     fetch("http://localhost:8088/users", {
                         method: "POST",
                         headers: {
@@ -58,7 +92,7 @@ export const Register = (props) => {
                             roleId: roleId,
                             classId: classId,
                             raceId: raceId,
-                            photo: userPhoto.current.value,
+                            photo: image,
                             summary: userSummary.current.value
                             
                         })
@@ -70,12 +104,34 @@ export const Register = (props) => {
                                 props.history.push("/profile")
                             }
                         })
+                    }
                 })
         } else {
             passwordDialog.csurrent.showModal()
         }
     }
+    
+    const [loading,setLoading] = useState(false)
+    const [image,setImage] = useState("")
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset','wgwpr9x3')
+        setLoading(true)
+        const res = await fetch("https://api.cloudinary.com/v1_1/dbdxcl9wd/image/upload",
+        {
+            method: 'POST',
+            body:data
+        })
+        const file = await res.json()
+        console.log(file)
 
+        setImage(file.secure_url)
+        setLoading(false)
+
+
+    }
     return (
         <main style={{ textAlign: "center" }}>
 
@@ -89,7 +145,7 @@ export const Register = (props) => {
                 
                 <fieldset>
                     <label htmlFor="inputUserName"> Character Name </label>
-                    <input ref={username} type="userName"
+                    <input ref={username} type="userName" onChange={handleControlledInputChange}
                         name="UserName"
                         className="form-control"
                         placeholder="Username"
@@ -97,7 +153,7 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputPassword"> Password </label>
-                    <input ref={password} type="password"
+                    <input ref={password} type="password" onChange={handleControlledInputChange}
                         name="password"
                         className="form-control"
                         placeholder="Password"
@@ -105,7 +161,7 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
-                    <input ref={verifyPassword} type="password"
+                    <input ref={verifyPassword} type="password" onChange={handleControlledInputChange}
                         name="verifyPassword"
                         className="form-control"
                         placeholder="Verify password"
@@ -113,10 +169,21 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="userPhoto"> Add Photo </label>
-                    <input ref={userPhoto} type="file"
+                    <div><input type="file" 
                         name="userPhoto"
                         className="form-control"
-                        required />
+                        required 
+                        onChange={uploadImage}
+                        />
+
+                        {
+                            loading?(
+                                <div>Loading...</div>
+                            ): (
+                                <img src={image} />
+                            )
+                        }
+                        </div>
                 </fieldset>
 
 
@@ -124,7 +191,7 @@ export const Register = (props) => {
                 <fieldset>
                 <div className="form-group">
                     <label htmlFor="rank">Guild Rank: </label>
-                    <select defaultValue="" name="rank" ref={rank} id="userRank" className="form-control" >
+                    <select defaultValue="" name="rank" ref={rank} id="userRank" className="form-control" onChange={handleControlledInputChange} >
                         <option value="0">Select a Rank</option>
                         {ranks.map(e => (
                             <option key={e.id} value={e.id}>
@@ -137,7 +204,7 @@ export const Register = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="role">Role: </label>
-                    <select defaultValue="" name="role" ref={role} id="userRole" className="form-control" >
+                    <select defaultValue="" name="role" ref={role} id="userRole" className="form-control" onChange={handleControlledInputChange} >
                         <option value="0">Select a Role</option>
                         {roles.map(e => (
                             <option key={e.id} value={e.id}>
@@ -150,7 +217,7 @@ export const Register = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="race">Race: </label>
-                    <select defaultValue="" name="race" ref={race} id="userRace" className="form-control" >
+                    <select defaultValue="" name="race" ref={race} onChange={handleControlledInputChange} id="userRace" className="form-control" >
                         <option value="0">Select a Rank</option>
                         {races.map(e => (
                             <option key={e.id} value={e.id}>
@@ -163,7 +230,7 @@ export const Register = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="class">Class: </label>
-                    <select defaultValue="" name="class" ref={userClass} id="userClass" className="form-control" >
+                    <select defaultValue="" name="class" ref={userClass} onChange={handleControlledInputChange} id="userClass" className="form-control" >
                         <option value="0">Select a Class</option>
                         {classes.map(e => (
                             <option key={e.id} value={e.id}>
@@ -179,7 +246,7 @@ export const Register = (props) => {
 
                 <fieldset>
                     <label htmlFor="userSummary"> Summary </label>
-                    <textarea ref={userSummary} type="userSummary"
+                    <textarea ref={userSummary} onChange={handleControlledInputChange} type="userSummary"
                         name="userSummary"
                         className="form-control"
                         required />
@@ -190,7 +257,7 @@ export const Register = (props) => {
                         e.preventDefault()
                         handleRegister()
                     }}>
-                        Sign in
+                        Save Profile
                     </button>
                 </fieldset>
             </form>

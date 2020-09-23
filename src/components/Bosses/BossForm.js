@@ -11,7 +11,7 @@ export const BossForm = (props) => {
 
    
     const [boss, setBoss] = useState({})
-    const bossPhoto = useRef()
+    
     const bossSummary = useRef()
 
     
@@ -31,6 +31,27 @@ export const BossForm = (props) => {
             const selectedBoss = bosses.find(a => a.id === bossId) || {}
             setBoss(selectedBoss)
         }
+    }
+    const [loading,setLoading] = useState(false)
+    const [image,setImage] = useState("")
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset','wgwpr9x3')
+        setLoading(true)
+        const res = await fetch("https://api.cloudinary.com/v1_1/dbdxcl9wd/image/upload",
+        {
+            method: 'POST',
+            body:data
+        })
+        const file = await res.json()
+        console.log(file)
+
+        setImage(file.secure_url)
+        setLoading(false)
+
+
     }
 
     
@@ -56,7 +77,7 @@ export const BossForm = (props) => {
                 updateBoss({
                     id: boss.id,
                     name: boss.name,
-                    photo: bossPhoto.current.value,
+                    photo: image,
                     dungeonId: dungeonId,
                     summary: bossSummary.current.value,
                     status: boss.status
@@ -66,7 +87,7 @@ export const BossForm = (props) => {
                 
                 addBoss({
                     name: boss.name,
-                    photo: bossPhoto.current.value,
+                    photo: image,
                     dungeonId: dungeonId,
                     summary: bossSummary.current.value,
                     status: boss.status
@@ -75,7 +96,7 @@ export const BossForm = (props) => {
             }
         }
     }
-
+    
     return (
         <form className="bossForm">
             <h2 className="bossForm__title">{editMode ? "Update Boss" : "Add Boss"}</h2>
@@ -91,12 +112,21 @@ export const BossForm = (props) => {
             </fieldset>
             <fieldset>
                     <label htmlFor="bossPhoto"> Add Photo </label>
-                    <input ref={bossPhoto} type="file"
+                    <div><input type="file"
                         name="bossPhoto"
                         className="form-control"
                         required 
-                        onChange={handleControlledInputChange}
+                        onChange={uploadImage}
                         />
+
+                        {
+                            loading?(
+                                <div>Loading...</div>
+                            ): (
+                                <img src={image} />
+                            )
+                        }
+                        </div>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="bossSummary"> Summary </label>

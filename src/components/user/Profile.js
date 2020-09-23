@@ -42,7 +42,10 @@ export const Profile = ({ history }) => {
             <div className="profile__name">{user.name}</div>
             <div className="profile__rank">{user.rank.name}</div>
             <div className="profile__details">{user.race.name} {user.class.name}</div>
-            <div><img  class="profile__image" src={user.photo} /></div>
+            <img  className="profile__image" src={user.photo} />
+            <button onClick={() => {
+                history.push(`/profile/edit/${user.id}`)
+            }}>Edit</button>
             <UserProfessionList>
 
             </UserProfessionList>

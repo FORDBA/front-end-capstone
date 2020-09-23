@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react"
 import { BossContext } from "./BossProvider"
+
+
 import "./Bosses.css"
 
 
@@ -19,7 +21,7 @@ export const BossDetails = ( props ) => {
 
     
 
-
+    
     
  
     return (
@@ -41,11 +43,6 @@ export const BossDetails = ( props ) => {
 
 
         <h2>Comments</h2>
-        <input type="text" name="name" required autoFocus className="form-control"
-                        placeholder="Event Name"
-                        defaultValue={event.name}
-                        onChange={handleControlledInputChange}
-                    />
         </main>
     )
 }

@@ -18,6 +18,11 @@ import { EventList } from "./Events/EventList"
 import { EventProvider } from "./Events/EventProvider"
 import { EventDetails } from "./Events/EventDetails"
 import { EventForm } from "./Events/EventForm"
+import { Register } from "./auth/Register"
+import { RankProvider } from "./rank/RankProvider"
+import { RoleProvider } from "./role/RoleProvider"
+import { ClassProvider } from "./class/ClassProvider"
+import { RaceProvider } from "./race/RaceProvider"
 
 
 export const ApplicationViews = (props) => {
@@ -35,7 +40,10 @@ export const ApplicationViews = (props) => {
                 <ProfessionProvider>
                     <BossProvider>
                         <NeededBossProvider>
-
+                            <RankProvider>
+                            <RoleProvider>
+                                <ClassProvider>
+                                    <RaceProvider>
                     <UserProfessionProvider>
 
                         <Route exact path="/profile" render={(props) => {
@@ -44,16 +52,26 @@ export const ApplicationViews = (props) => {
                                 <Profile history={props.history} />
                             </>
                         }} />
+                        <Route path="/profile/edit/:userId(\d+)" render={
+                            props => <Register {...props} />
+                        } />
 
 
                         <Route path="/profile/createprofs" render={(props) => {
                             return <ProfessionForm {...props} />
+                        }} />
+                        <Route path="/profile/createloot" render={(props) => {
+                            return <TreasureForm {...props} />
                         }} />
 
                         <Route path="/profile/createbossesneeded" render={(props) => {
                             return <NeededBossesForm {...props} />
                         }} />
                     </UserProfessionProvider>
+                    </RaceProvider>
+                    </ClassProvider>
+                    </RoleProvider>
+                    </RankProvider>
                     </NeededBossProvider>
                     </BossProvider>
                 </ProfessionProvider>
