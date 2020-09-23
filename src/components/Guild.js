@@ -34,7 +34,9 @@ export const Guild = () => (
                <RaceProvider>
        <RankProvider>
            <ProfessionProvider>
+               <UserProvider>
                 <Route path="/register" render={props => <Register {...props} />} />
+                </UserProvider>
            </ProfessionProvider>
         </RankProvider>
                </RaceProvider>

@@ -89,6 +89,9 @@ export const ApplicationViews = (props) => {
                 <ProfessionProvider>
 
                     <UserProfessionProvider>
+                        <BossProvider>
+                            <NeededBossProvider>
+                                <TreasureProvider>
 
                         <Route exact path="/members" render={(props) => {
                             return <>
@@ -101,6 +104,9 @@ export const ApplicationViews = (props) => {
                         <Route path="/members/:userId(\d+)" render={
                             props => <UserDetails {...props} />
                         } />
+                        </TreasureProvider>
+                        </NeededBossProvider>
+                        </BossProvider>
                     </UserProfessionProvider>
                 </ProfessionProvider>
             </UserProvider>
