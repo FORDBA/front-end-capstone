@@ -85,7 +85,7 @@ export const EventForm = (props) => {
                 </div>
             </fieldset>
             <fieldset>
-                    <label htmlFor="eventDate"> Add Photo </label>
+                    <label htmlFor="eventDate"> Add Date </label>
                     <input ref={eventDate} type="date"
                         name="eventDate"
                         className="form-control"

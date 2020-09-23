@@ -1,7 +1,7 @@
 import React, { useRef, useContext, useState, useEffect } from "react"
 import { TreasureContext } from "./TreasureProvider"
-import { BossContext } from "../Dungeons/DungeonProvider"
-import "./Treasurees.css"
+import { BossContext } from "../Bosses/BossProvider"
+import "./Treasures.css"
 
 
 export const TreasureForm = (props) => {

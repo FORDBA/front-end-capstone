@@ -4,6 +4,8 @@ import { UserProfessionContext } from "../profession/UserProfessionProvider"
 import { User } from "./User"
 import "./Users.css"
 import { UserProfessionList } from "../profession/UserProfessionList"
+import { NeededBossList } from "../Bosses/NeededBossesList"
+import { TreasureList } from "../Loot/TreasureList"
 
 export const Profile = ({ history }) => {
     
@@ -43,19 +45,34 @@ export const Profile = ({ history }) => {
             <div className="profile__rank">{user.rank.name}</div>
             <div className="profile__details">{user.race.name} {user.class.name}</div>
             <img  className="profile__image" src={user.photo} />
+            <div className="profile__Summary">{user.summary}</div>
             <button onClick={() => {
                 history.push(`/profile/edit/${user.id}`)
             }}>Edit</button>
-            <UserProfessionList>
 
-            </UserProfessionList>
-
+                       
+               
             <button onClick={() => history.push("/profile/createprofs")}>
                 Add Professions
                 </button>
+            <UserProfessionList>
+
+            </UserProfessionList>
+           
                 <button onClick={() => history.push("/profile/createbossesneeded")}>
                 Add Bosses
                 </button>
+
+            <NeededBossList>
+
+            </NeededBossList>
+
+            <button onClick={() => history.push("/profile/createloot")}>
+                Add Loot
+                </button>
+                <TreasureList>
+
+                </TreasureList>
             <div className="profile">
                
             </div>

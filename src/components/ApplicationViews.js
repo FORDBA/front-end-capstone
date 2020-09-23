@@ -23,7 +23,11 @@ import { RankProvider } from "./rank/RankProvider"
 import { RoleProvider } from "./role/RoleProvider"
 import { ClassProvider } from "./class/ClassProvider"
 import { RaceProvider } from "./race/RaceProvider"
-
+import { TreasureForm } from "./Loot/TreasureForm"
+import { TreasureProvider } from "./Loot/TreasureProvider"
+import { AttendingEventProvider } from "./Events/AttendingEventsProvider"
+import { CommentProvider } from "./Comments/CommentProvider"
+ 
 
 export const ApplicationViews = (props) => {
     return (
@@ -44,6 +48,7 @@ export const ApplicationViews = (props) => {
                             <RoleProvider>
                                 <ClassProvider>
                                     <RaceProvider>
+                                        <TreasureProvider>
                     <UserProfessionProvider>
 
                         <Route exact path="/profile" render={(props) => {
@@ -67,7 +72,9 @@ export const ApplicationViews = (props) => {
                         <Route path="/profile/createbossesneeded" render={(props) => {
                             return <NeededBossesForm {...props} />
                         }} />
+                        
                     </UserProfessionProvider>
+                    </TreasureProvider>
                     </RaceProvider>
                     </ClassProvider>
                     </RoleProvider>
@@ -101,6 +108,8 @@ export const ApplicationViews = (props) => {
 
             <DungeonProvider>
             <BossProvider>
+                <UserProvider>
+                <CommentProvider>
                 <Route exact path="/bosses" render={(props) => {
                             return <>
 
@@ -117,12 +126,14 @@ export const ApplicationViews = (props) => {
                         <Route path="/bosses/edit/:bossId(\d+)" render={
                             props => <BossForm {...props} />
                         } />
-
+             </CommentProvider>           
+             </UserProvider>
             </BossProvider>
             </DungeonProvider>
 
             <UserProvider>
                 <EventProvider>
+                    <AttendingEventProvider>
 
                     
 
@@ -143,6 +154,7 @@ export const ApplicationViews = (props) => {
                          <Route path="/events/edit/:eventId(\d+)" render={
                             props => <EventForm {...props} />
                         } />
+                        </AttendingEventProvider>
                     
                 </EventProvider>
             </UserProvider>

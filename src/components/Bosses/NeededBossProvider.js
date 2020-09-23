@@ -27,12 +27,18 @@ export const NeededBossProvider = (props) => {
         return fetch(`http://localhost:8088/neededBosses/${id}?_expand=dungeon`)
             .then(res => res.json())
     }
+    const deleteNeededBoss = (neededBossId) => {
+        return fetch(`http://localhost:8088/bosses/${neededBossId}`, {
+            method: "DELETE"
+        })
+            .then(getNeededBosses)
+    }
 
     
     
     return (
         <NeededBossContext.Provider value={{
-            neededBosses, getNeededBosses, addNeededBoss, getNeededBossById
+            neededBosses, getNeededBosses, addNeededBoss, getNeededBossById, deleteNeededBoss
         }}>
             {props.children}
         </NeededBossContext.Provider>
