@@ -27,6 +27,10 @@ import { TreasureForm } from "./Loot/TreasureForm"
 import { TreasureProvider } from "./Loot/TreasureProvider"
 import { AttendingEventProvider } from "./Events/AttendingEventsProvider"
 import { CommentProvider } from "./Comments/CommentProvider"
+import { NeededBossList } from "./Bosses/NeededBossesList"
+import { UserProfessionList } from "./profession/UserProfessionList"
+import { TreasureList } from "./Loot/TreasureList"
+import { UserSearch } from "./user/UserSearch"
  
 
 export const ApplicationViews = (props) => {
@@ -55,6 +59,13 @@ export const ApplicationViews = (props) => {
                             return <>
 
                                 <Profile history={props.history} />
+                                <UserProfessionList />
+                                <NeededBossList history={props.history} />
+                                <TreasureList history={props.history}/>
+
+                
+
+            
                             </>
                         }} />
                         <Route path="/profile/edit/:userId(\d+)" render={
@@ -92,10 +103,11 @@ export const ApplicationViews = (props) => {
                         <BossProvider>
                             <NeededBossProvider>
                                 <TreasureProvider>
+                                    <RankProvider>
 
                         <Route exact path="/members" render={(props) => {
                             return <>
-
+                                <UserSearch />
                                 <UserList history={props.history} />
                             </>
                         }} />
@@ -104,6 +116,7 @@ export const ApplicationViews = (props) => {
                         <Route path="/members/:userId(\d+)" render={
                             props => <UserDetails {...props} />
                         } />
+                        </RankProvider>
                         </TreasureProvider>
                         </NeededBossProvider>
                         </BossProvider>
@@ -140,7 +153,10 @@ export const ApplicationViews = (props) => {
             <UserProvider>
                 <EventProvider>
                     <AttendingEventProvider>
-
+                        <DungeonProvider>
+                            <BossProvider>
+                                <NeededBossProvider>
+                                    <TreasureProvider>
                     
 
                         <Route exact path="/events" render={(props) => {
@@ -160,6 +176,10 @@ export const ApplicationViews = (props) => {
                          <Route path="/events/edit/:eventId(\d+)" render={
                             props => <EventForm {...props} />
                         } />
+                        </TreasureProvider>
+                        </NeededBossProvider>
+                        </BossProvider>
+                        </DungeonProvider>
                         </AttendingEventProvider>
                     
                 </EventProvider>

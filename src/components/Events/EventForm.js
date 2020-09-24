@@ -1,12 +1,14 @@
 import React, { useRef, useContext, useState, useEffect } from "react"
 import { EventContext } from "./EventProvider"
 import { UserContext } from "../user/UserProvider"
+import { DungeonContext } from "../Dungeons/DungeonProvider"
 import "./Events.css"
 
 
 export const EventForm = (props) => {
     
     const { addEvent, events, updateEvent, getEvents } = useContext(EventContext)
+    const { dungeons, getDungeons } = useContext(DungeonContext)
     
 
    
@@ -36,6 +38,7 @@ export const EventForm = (props) => {
     
     useEffect(() => {
         getEvents()
+        getDungeons()
          }, [])
 
     
@@ -45,15 +48,18 @@ export const EventForm = (props) => {
 
 
     const constructNewEvent = () => {
-        
+        const dungeonId = parseInt(event.dungeonId)
 
-        
+        if (dungeonId === 0) {
+            window.alert("Please select a dungeon")
+        } else {
             if (editMode) {
                 
                 updateEvent({
                     id: event.id,
                     name: event.name,
                     date: eventDate.current.value,
+                    dungeonId: dungeonId ,
                     userId: parseInt(localStorage.getItem("guild_user"))
                     
                 })
@@ -63,12 +69,13 @@ export const EventForm = (props) => {
                 addEvent({
                     name: event.name,
                     date: eventDate.current.value,
+                    dungeonId: dungeonId ,
                     userId: parseInt(localStorage.getItem("guild_user"))
                     
                 })
                     .then(() => props.history.push("/events"))
             }
-        
+        }
     }
 
     return (
@@ -93,7 +100,22 @@ export const EventForm = (props) => {
                         onChange={handleControlledInputChange}
                         />
                 </fieldset>
-                
+                <fieldset>
+                <div className="form-group">
+                    <label htmlFor="dungeonId">Dungeon: </label>
+                    <select name="dungeonId" className="form-control"
+                        value={event.dungeonId}
+                        onChange={handleControlledInputChange}>
+
+                        <option value="0">Select a Dungeon</option>
+                        {dungeons.map(e => (
+                            <option key={e.id} value={e.id}>
+                                {e.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </fieldset>
             
             
                 

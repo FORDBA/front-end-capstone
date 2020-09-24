@@ -95,7 +95,7 @@ export const TreasureForm = (props) => {
                         value={treasure.bossId}
                         onChange={handleControlledInputChange}>
 
-                        <option value="0">Select a Dungeon</option>
+                        <option value="0">Select Boss</option>
                         {bosses.map(e => (
                             <option key={e.id} value={e.id}>
                                 {e.name}

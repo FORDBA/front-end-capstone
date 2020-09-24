@@ -55,24 +55,20 @@ export const Profile = ({ history }) => {
             <button onClick={() => history.push("/profile/createprofs")}>
                 Add Professions
                 </button>
-            <UserProfessionList>
-
-            </UserProfessionList>
+            
            
                 <button onClick={() => history.push("/profile/createbossesneeded")}>
                 Add Bosses
                 </button>
 
-            <NeededBossList>
+            
 
-            </NeededBossList>
+            
 
             <button onClick={() => history.push("/profile/createloot")}>
                 Add Loot
                 </button>
-                <TreasureList>
-
-                </TreasureList>
+                
             <div className="profile">
                
             </div>

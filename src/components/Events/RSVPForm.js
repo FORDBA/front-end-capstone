@@ -49,7 +49,7 @@ export const AttendingEventsForm = (props) => {
                         })
                         .then(() => props.history.push("/profile"))
                     } else {
-                        debugger
+                        
                         // POST
                         addAttendingEvent({
                             status: attendingEvent.value,

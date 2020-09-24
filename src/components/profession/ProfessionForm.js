@@ -53,7 +53,7 @@ export const ProfessionForm = (props) => {
                         })
                         .then(() => props.history.push("/profile"))
                     } else {
-                        debugger
+                        
                         // POST
                         addUserProfession({
                             professionId: parseInt(professionId.value),

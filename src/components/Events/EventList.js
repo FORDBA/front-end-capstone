@@ -24,8 +24,7 @@ export const EventList = (props, { history }) => {
         setFiltered(events)
     }, [events])
 
-   let numberAttending = []
-   let hiddenArray =[]
+   
     
 
     return (
@@ -42,7 +41,7 @@ export const EventList = (props, { history }) => {
                 {
                     filteredEvents.map(event => {
                         event.users = users.find(e => e.id === event.userId)
-                        event.attendingEvents = attendingEvents.filter(a => a.eventId === event.id)
+                        
                         return <section className="event" key={event.id}>
                             <Link to={`/events/${event.id}`}>
                                 <h3>{event.name}</h3>

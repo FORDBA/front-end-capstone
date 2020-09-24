@@ -4,11 +4,24 @@ import { Link } from "react-router-dom"
 import "./Users.css"
 
 export const UserList = props => {
-    const { users, getUsers } = useContext(UserContext)
+    const { users, getUsers, searchTerms, setFilter } = useContext(UserContext)
+    const [filteredUsers, setFiltered] = useState([])
 
     useEffect(() => {
         getUsers()
     }, [])
+    useEffect(() => {
+        const matchingUsers = users.filter(user => user.name.toLowerCase().includes(searchTerms.toLowerCase()))
+        setFiltered(matchingUsers)
+      
+    }, [searchTerms])
+    useEffect(() => {
+        setFiltered(users)
+    }, [users])
+
+
+    
+
 
     return (
         <div>
@@ -18,7 +31,7 @@ export const UserList = props => {
 
             <article className="members">
                 {
-                    users.map(user => {
+                    filteredUsers.map(user => {
                         return <section className="member" key={user.id}>
                             <Link to={`/members/${user.id}`}>
                                 <h3>{user.name}</h3>

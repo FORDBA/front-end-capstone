@@ -28,7 +28,8 @@ export const NeededBossProvider = (props) => {
             .then(res => res.json())
     }
     const deleteNeededBoss = (neededBossId) => {
-        return fetch(`http://localhost:8088/bosses/${neededBossId}`, {
+        
+        return fetch(`http://localhost:8088/neededBosses/${neededBossId}`, {
             method: "DELETE"
         })
             .then(getNeededBosses)

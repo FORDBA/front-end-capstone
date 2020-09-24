@@ -34,9 +34,11 @@ export const NeededBossList = (props) => {
 
                     return <section className="neededBoss" key={neededBoss.id}>
                     <div>{neededBoss.bosses.name}</div>
+                    
                     <button onClick={() => deleteNeededBoss(neededBoss.id).then(() => props.history.push("/profile"))} >Delete</button>
                 </section> 
                 }
+                
             })
         }        
                                   

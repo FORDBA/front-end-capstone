@@ -51,7 +51,7 @@ export const NeededBossesForm = (props) => {
                         })
                         .then(() => props.history.push("/profile"))
                     } else {
-                        debugger
+                        
                         // POST
                         addNeededBoss({
                             bossId: parseInt(bossId.value),

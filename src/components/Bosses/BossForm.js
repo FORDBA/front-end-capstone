@@ -70,7 +70,7 @@ export const BossForm = (props) => {
         const dungeonId = parseInt(boss.dungeonId)
 
         if (dungeonId === 0) {
-            window.alert("Please select a location")
+            window.alert("Please select a dungeon")
         } else {
             if (editMode) {
                 
@@ -140,7 +140,7 @@ export const BossForm = (props) => {
             
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="dungeonId">Location: </label>
+                    <label htmlFor="dungeonId">Dungeon: </label>
                     <select name="dungeonId" className="form-control"
                         value={boss.dungeonId}
                         onChange={handleControlledInputChange}>
