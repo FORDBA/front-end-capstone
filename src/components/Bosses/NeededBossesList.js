@@ -2,9 +2,10 @@ import React, { useState, useContext, useEffect } from "react"
 import { UserContext } from "../user/UserProvider"
 import { BossContext } from "./BossProvider"
 import { NeededBossContext } from "./NeededBossProvider"
+import "./NeededBosses.css"
 
 
-export const NeededBossList = (props) => {
+export const NeededBossList = (props, { history }) => {
     const { users, getUsers } = useContext(UserContext)
     const { bosses, getBosses } = useContext(BossContext)
     const { neededBosses, getNeededBosses, deleteNeededBoss } = useContext(NeededBossContext)
@@ -33,9 +34,9 @@ export const NeededBossList = (props) => {
                 if (neededBoss.users.id === parseInt(localStorage.getItem("guild_user"))) {
 
                     return <section className="neededBoss" key={neededBoss.id}>
-                    <div>{neededBoss.bosses.name}</div>
+                    <h3>{neededBoss.bosses.name}</h3>
                     
-                    <button onClick={() => deleteNeededBoss(neededBoss.id).then(() => props.history.push("/profile"))} >Delete</button>
+                    <button onClick={() => deleteNeededBoss(neededBoss.id)} >Delete</button>
                 </section> 
                 }
                 

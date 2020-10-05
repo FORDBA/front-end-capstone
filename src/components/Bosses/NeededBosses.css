@@ -1,13 +1,13 @@
-.treasures {
+.neededBosses {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: start;
   }
   
-.treasure {
-      flex-basis: 28%;
+.neededBoss {
+      flex-basis: 10%;
       margin: 1em;
       padding: 1em;
       background-color: #A4724A;
-      border: #7C6B64  groove 2px;
+      border:#7C6B64 groove 2px;
   }

@@ -8,5 +8,36 @@
       flex-basis: 28%;
       margin: 1em;
       padding: 1em;
-      border: 1px solid goldenrod;
+      background-color: #A4724A;
+      border: #7C6B64  groove 2px;
   }
+.profile__image {
+      width: 400px;
+      border: groove #7C6B64 2px 
+  }
+.profile__Summary{
+      margin: 1em;
+      padding: 1em;
+      border: 1px
+
+}
+.ProfileContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.characterContainer {
+  background-color: #89300F;
+  margin: 1em;
+  padding: 3em;
+
+}
+.lootContainer {
+  background-color: #89300F;
+  margin: 1em;
+  padding: 3em;
+  
+}
+.ProfileContainer {
+  background-color: #89300F
+}

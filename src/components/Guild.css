@@ -1,4 +1,6 @@
-body,
+body {
+  background-color: rgba(184, 8, 8, 0.4);
+}
 button,
 input,
 select,
@@ -7,6 +9,7 @@ textarea {
   font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
+  background-color: rgba(184, 8, 8, 0.4);
 }
 
 h1,

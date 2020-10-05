@@ -8,5 +8,23 @@
       flex-basis: 28%;
       margin: 1em;
       padding: 1em;
-      border: 1px solid goldenrod;
+      background-color: #A4724A;
+      border: #7C6B64  groove 2px;
+  }
+  .eventContainer {
+    background-color:  #89300F;
+    margin: 5em;
+    padding: 5em;
+  }
+  .attendingList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+
+  }
+  .attendingUser {
+    font-weight: bold;
+    margin: 5px;
+    padding: 5px;
+    background-color: #A4724A;
   }

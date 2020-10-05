@@ -1,6 +1,10 @@
 .h1, h1 {
     font-size: 2.5rem;
 }
+body {
+  background-color: #7C6B64;
+  
+}
 
 fieldset {
     min-width: 0;
@@ -40,10 +44,13 @@ fieldset {
     border-radius: .25rem;
     -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    
+    
 }
 
 .container--login {
     text-align: center;
+    background-repeat: no-repeat;
     
 }
 
@@ -52,9 +59,9 @@ fieldset {
     z-index: 1;
     min-height: 25rem;
     min-width: 45rem;
-    background-color: hsla(0,0%,100%,0.40);
     background-blend-mode: overlay;
     background-repeat: no-repeat;
+    
 }
 
 .button--close {

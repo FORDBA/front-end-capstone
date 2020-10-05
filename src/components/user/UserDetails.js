@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect } from "react"
 import { UserContext } from "./UserProvider"
 import { UserProfessionContext } from "../profession/UserProfessionProvider"
 import "./Users.css"
+import "../profession/Professions.css"
+import "../Bosses/NeededBosses.css"
+import "../Loot/Treasures.css"
 import { ProfessionContext } from "../profession/ProfessionProvider"
 import { BossContext } from "../Bosses/BossProvider"
 import { NeededBossContext } from "../Bosses/NeededBossProvider"
@@ -48,37 +51,41 @@ export const UserDetails = (props) => {
 
     return (
         <main className="ProfileContainer">
+            <div className="characterContainer">
 
-            <h1>Profile</h1>
 
-            <div className="profile__name">{user.name}</div>
+            
+
+            <h1 className="profile__name">{user.name}</h1>
             <div className="profile__rank">{user.rank.name}</div>
             <div className="profile__details">{user.race.name} {user.class.name}</div>
             <img className="profile__image" src={user.photo} />
             <div className="profile__Summary">{user.summary}</div>
+            <h2>Professions</h2>
             <div className="userProfessions">
         {
             userProfessions.map(userProfession => {
                 userProfession.users = users.find(u => u.id === userProfession.userId)
                 userProfession.professions = professions.find(p => p.id === userProfession.professionId)
                 if (userProfession.users.id === parseInt(props.match.params.userId)) {
-
+                    
                     return <section className="userProfession" key={userProfession.id}>
-                    <div>{userProfession.professions.name}</div>
+                    <h3>{userProfession.professions.name}</h3>
                 </section> 
                 }
             })
         } 
         </div > 
+        <h2>Bosses Needed For Progression</h2>
         <div className="neededBosses">
         {
             neededBosses.map(neededBoss => {
                 neededBoss.users = users.find(u => u.id === neededBoss.userId)
                 neededBoss.bosses = bosses.find(b => b.id === neededBoss.bossId)
                 if (neededBoss.users.id === parseInt(props.match.params.userId)) {
-
+                    
                     return <section className="neededBoss" key={neededBoss.id}>
-                    <div>{neededBoss.bosses.name}</div>
+                    <h3>{neededBoss.bosses.name}</h3>
                     
                 </section> 
                 }
@@ -86,13 +93,17 @@ export const UserDetails = (props) => {
         }        
                    
         </div >
+            </div>
+            <div className="lootContainer">
+            <h2>Loot Needed</h2>
+
         <div className="treasures">
         {
             treasures.map(treasure => {
                 treasure.users = users.find(u => u.id === treasure.userId)
                 treasure.bosses = bosses.find(b => b.id === treasure.bossId)
                 if (treasure.users.id === parseInt(props.match.params.userId)) {
-
+                    
                     return <section className="treasure" key={treasure.id}>
                     <h3>{treasure.name}</h3>
                     <div>Drops From: {treasure.bosses.name}</div>
@@ -110,9 +121,8 @@ export const UserDetails = (props) => {
            
 
 
-            <div className="profile">
-
-            </div>
+            
+        </div>
         </main>
     )
 }

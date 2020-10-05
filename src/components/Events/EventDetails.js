@@ -178,6 +178,7 @@ export const EventDetails = (props) => {
                 <div className="event__creator">{event.user.name}</div>
                 <h2>Attending</h2>
                 <button  onClick={() => checkUserNeed(parseInt(localStorage.getItem("guild_user")))} ref={attendingStatus} defaultValue="Attending">Click if Attending</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
@@ -189,7 +190,9 @@ export const EventDetails = (props) => {
                                 )
                             } else {
                                 return (
+                                    <section className="attendingUser">
                                     <div className="event__notNeeded">{attendingEvent.users.name}</div>
+                                    </section>
                                 )
                             }
 
@@ -197,8 +200,10 @@ export const EventDetails = (props) => {
                     }
                     )
                 }
+                </div>
                 <h2>Tentative</h2>
                 <button onClick onClick={() => clickTentativeAttendingEvent()} ref={attendingStatus} defaultValue="Attending">Click if Tentative</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
@@ -206,11 +211,14 @@ export const EventDetails = (props) => {
                         if (attendingEvent.status === "Tentative" && attendingEvent.eventId === event.id) {
                             if (needsEvent === true) {
                                 return (
+                                    
                                     <div className="event__needed">{attendingEvent.users.name}</div>
                                 )
                             } else {
                                 return (
+                                    <section className="attendingUser">
                                     <div className="event__notNeeded">{attendingEvent.users.name}</div>
+                                    </section>
                                 )
                             }
 
@@ -219,21 +227,26 @@ export const EventDetails = (props) => {
                     }
                     )
                 }
+                </div>
                 <h2>Not Attending</h2>
                 <button onClick onClick={() => clickNotAttendingEvent()} ref={attendingStatus} defaultValue="Attending">Click if Unable to Attend</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
                         attendingEvent.events = events.find(e => e.id === attendingEvent.eventId)
                         if (attendingEvent.status === "Not Attending" && attendingEvent.eventId === event.id) {
                             return (
+                                <section className="attendingUser">
                                 <div>{attendingEvent.users.name}</div>
+                                </section>
                             )
 
                         }
                     }
                     )
                 }
+                </div>
 
 
 
@@ -252,52 +265,64 @@ export const EventDetails = (props) => {
 
 
                 <div className="event__date">{event.date}</div>
-                <div className="event__creator">{event.user.name}</div>
+                <div className="event__creator">Created By:{event.user.name}</div>
                 <h2>Attending</h2>
                 <button onClick onClick={() => clickAttendingEvent()} ref={attendingStatus} defaultValue="Attending">Click if Attending</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
                         attendingEvent.events = events.find(e => e.id === attendingEvent.eventId)
                         if (attendingEvent.status === "Attending" && attendingEvent.eventId === event.id) {
                             return (
-                                <div>{attendingEvent.users.name}</div>
+                                <section className="attendingUser">
+                                <div >{attendingEvent.users.name}</div>
+                                </section>
                             )
 
                         }
                     }
                     )
                 }
+                </div>
                 <h2>Tentative</h2>
                 <button onClick onClick={() => clickTentativeAttendingEvent()} ref={attendingStatus} defaultValue="Attending">Click if Tentative</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
                         attendingEvent.events = events.find(e => e.id === attendingEvent.eventId)
                         if (attendingEvent.status === "Tentative" && attendingEvent.eventId === event.id) {
                             return (
+                                <section className="attendingUser">
                                 <div>{attendingEvent.users.name}</div>
+                                </section>
                             )
 
                         }
                     }
                     )
                 }
+                </div>
                 <h2>Not Attending</h2>
                 <button onClick onClick={() => clickNotAttendingEvent()} ref={attendingStatus} defaultValue="Attending">Click if Unable to Attend</button>
+                <div className="attendingList">
                 {
                     attendingEvents.map(attendingEvent => {
                         attendingEvent.users = users.find(u => u.id === attendingEvent.userId)
                         attendingEvent.events = events.find(e => e.id === attendingEvent.eventId)
                         if (attendingEvent.status === "Not Attending" && attendingEvent.eventId === event.id) {
                             return (
-                                <div>{attendingEvent.users.name}</div>
+                                <section className="attendingUser">
+                                <div >{attendingEvent.users.name}</div>
+                                </section>
                             )
 
                         }
                     }
                     )
                 }
+                </div>
 
 
 

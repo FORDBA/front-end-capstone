@@ -75,13 +75,14 @@ export const BossDetails = ( props ) => {
  
     return (
         <main className="BossContainer">
+            <div className="bossDiv">
             
             <h1 className="boss__name">{boss.name}</h1>
 
             <div><img  class="boss__image" src={boss.photo} /></div>
             <div className="boss__summary">{boss.summary}</div>
-            <div className="boss__dungeon">{boss.dungeon.name}</div>
-            <div className="boss__status">{boss.status}</div>
+            <div className="boss__dungeon">Dungeon: {boss.dungeon.name}</div>
+            <div className="boss__status">Status: {boss.status}</div>
             
             
 
@@ -109,7 +110,7 @@ export const BossDetails = ( props ) => {
 
             
                             <div>{comment.comment}</div>
-                            <div>{comment.users.name}</div>
+                            <div className="comment__user">{comment.users.name}</div>
                             </section>
                         )
 
@@ -118,7 +119,7 @@ export const BossDetails = ( props ) => {
                 )
             }
 
-
+        </div>
         </main>
     )
 }

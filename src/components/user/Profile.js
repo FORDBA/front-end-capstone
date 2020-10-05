@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react"
 import { UserContext } from "./UserProvider"
 import { UserProfessionContext } from "../profession/UserProfessionProvider"
-import { User } from "./User"
 import "./Users.css"
 import { UserProfessionList } from "../profession/UserProfessionList"
 import { NeededBossList } from "../Bosses/NeededBossesList"
@@ -38,10 +37,11 @@ export const Profile = ({ history }) => {
  
     return (
         <main className="ProfileContainer">
+            <div className="characterContainer">
             
-            <h1>Profile</h1>
+            
 
-            <div className="profile__name">{user.name}</div>
+            <h1 className="profile__name">{user.name}</h1>
             <div className="profile__rank">{user.rank.name}</div>
             <div className="profile__details">{user.race.name} {user.class.name}</div>
             <img  className="profile__image" src={user.photo} />
@@ -51,27 +51,31 @@ export const Profile = ({ history }) => {
             }}>Edit</button>
 
                        
-               
+             <h2>Professions</h2>  
             <button onClick={() => history.push("/profile/createprofs")}>
                 Add Professions
                 </button>
+                <UserProfessionList />
             
-           
+                <h2>Bosses Needed For Progression</h2>
                 <button onClick={() => history.push("/profile/createbossesneeded")}>
                 Add Bosses
                 </button>
+                <NeededBossList {...history} />
+                </div>
 
             
 
-            
+            <div className="lootContainer">
 
+            <h2>Loot Needed</h2>
             <button onClick={() => history.push("/profile/createloot")}>
                 Add Loot
                 </button>
-                
-            <div className="profile">
-               
+                <TreasureList />
             </div>
+                
+            
         </main>
     )
 }

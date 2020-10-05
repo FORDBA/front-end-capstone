@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react"
 import { UserContext } from "../user/UserProvider"
 import { ProfessionContext } from "./ProfessionProvider"
 import { UserProfessionContext } from "./UserProfessionProvider"
+import "./Professions.css"
 
 
 export const UserProfessionList = (props) => {
@@ -33,7 +34,7 @@ export const UserProfessionList = (props) => {
                 if (userProfession.users.id === parseInt(localStorage.getItem("guild_user"))) {
 
                     return <section className="userProfession" key={userProfession.id}>
-                    <div>{userProfession.professions.name}</div>
+                    <h3>{userProfession.professions.name}</h3>
                 </section> 
                 }
             })

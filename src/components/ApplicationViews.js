@@ -59,9 +59,9 @@ export const ApplicationViews = (props) => {
                             return <>
 
                                 <Profile history={props.history} />
-                                <UserProfessionList />
-                                <NeededBossList history={props.history} />
-                                <TreasureList history={props.history}/>
+                                
+                                
+                                
 
                 
 
