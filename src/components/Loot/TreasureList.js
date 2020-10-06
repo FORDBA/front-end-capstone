@@ -36,7 +36,7 @@ export const TreasureList = (props) => {
                     <h3>{treasure.name}</h3>
                     <div>Drops From: {treasure.bosses.name}</div>
                     <div>{treasure.reason}</div>
-                    <button onClick={() => deleteTreasure(treasure.id).then(() => props.history.push("/profile"))} >Delete</button>
+                    <button onClick={() => deleteTreasure(treasure.id)} >Delete</button>
                 </section> 
                 }
             })

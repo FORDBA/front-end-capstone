@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react"
 import { ProfessionContext } from "./ProfessionProvider"
 import { UserProfessionContext } from "./UserProfessionProvider"
+import "./Professions.css"
 
 export const ProfessionForm = (props) => {
     const { professions, getProfessions } = useContext(ProfessionContext)
@@ -75,7 +76,7 @@ export const ProfessionForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="professions">Professions: </label>
-                    <select multiple={true} defaultValue="" name="race" ref={profession} id="userRace" className="form-control" >
+                    <select multiple={true} defaultValue="" name="race" size='8' ref={profession} id="userRace" className="form-control" >
 
                         <option value="0">Select Professions</option>
                         {professions.map(e => (
